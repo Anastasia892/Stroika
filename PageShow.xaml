@@ -1,0 +1,62 @@
+﻿<Page x:Class="Stroika.PageShow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Stroika"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageShow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--НЕТ-->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Поиск:" FontSize="17" Margin=" 0 35" ></TextBlock>
+            <TextBox Name="TB_Serch" FontSize="17" Height="30" Width="200" TextChanged="TB_Serch_TextChanged"> </TextBox>
+            <TextBlock Text="Фильтр:" FontSize="17" Margin=" 0 35" ></TextBlock>
+            <ComboBox Name="CB_Filter" FontSize="17"  Height="30" Width="100" SelectionChanged="CB_Filter_SelectionChanged" ></ComboBox>
+            <TextBlock Text="Сортировка:" FontSize="17" Margin=" 0 35"></TextBlock>
+            <ComboBox Name="CB_Sort" FontSize="17"  Height="30" Width="100" SelectionChanged="CB_Sort_SelectionChanged">
+                <ComboBoxItem Content="Название возр"></ComboBoxItem>
+                <ComboBoxItem Content="Тип возр"></ComboBoxItem>
+                <ComboBoxItem Content="Название убыв"></ComboBoxItem>
+                <ComboBoxItem Content="Тип убыв"></ComboBoxItem>
+            </ComboBox>
+            <Button Name="Add_but" Content="Добавить"  Height="30" Width="100" Margin="20 0" Click="Add_but_Click" ></Button>
+        </StackPanel>
+       
+            
+            
+        
+        <ListView Name="LV" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                <TextBlock FontSize="16" Name="Name_TB" Text="Название: "></TextBlock>
+                                <TextBlock FontSize="16" Name="Name_ShowTB" Text="{Binding Title}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Name="Description_TB" Text="Описание:" Margin="0,0,0,0"></TextBlock>
+                                <TextBlock  Name="Descript_ShowTB" Text="{Binding Description}"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,15,5">
+                                    <TextBlock Name="Color_TB" Text="Цвет:" Margin="0,0,5,0"></TextBlock>
+                                    <TextBlock Name="Color_ShowTB" Text="{Binding Color}"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Name="Type_TB" Text="Тип:" Margin="0,0,5,0"></TextBlock>
+                                    <TextBlock Name="Type_ShowTB" Text="{Binding TypeMaterial1.Name}"></TextBlock>
+                                </StackPanel>
+                                    <Button Name="Add_but2" Content="Редактировать:"  Height="30" Width="100" Margin="0 10" Click="Add_but2_Click" Uid="{Binding IDMaterial}" ></Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

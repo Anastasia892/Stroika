@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище БД_СтроительнаяModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="IDMaterial" />
+          </Key>
+          <Property Name="IDMaterial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeMaterial" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Article" Type="int" Nullable="false" />
+          <Property Name="Color" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Cost" Type="int" />
+        </EntityType>
+        <EntityType Name="MaterialSupplier">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDMaterial" Type="int" Nullable="false" />
+          <Property Name="IDSupplier" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="IDSupplier" />
+          </Key>
+          <Property Name="IDSupplier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeSupplier" Type="int" Nullable="false" />
+          <Property Name="NameSupplier" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeMaterial">
+          <Key>
+            <PropertyRef Name="IDTypeMaterial" />
+          </Key>
+          <Property Name="IDTypeMaterial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeSupplier">
+          <Key>
+            <PropertyRef Name="IDTypeSupplier" />
+          </Key>
+          <Property Name="IDTypeSupplier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeSupplier" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Material_TypeMaterial">
+          <End Role="TypeMaterial" Type="Self.TypeMaterial" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeMaterial">
+              <PropertyRef Name="IDTypeMaterial" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="TypeMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialSupplier_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MaterialSupplier" Type="Self.MaterialSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="IDMaterial" />
+            </Principal>
+            <Dependent Role="MaterialSupplier">
+              <PropertyRef Name="IDMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialSupplier_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MaterialSupplier" Type="Self.MaterialSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="IDSupplier" />
+            </Principal>
+            <Dependent Role="MaterialSupplier">
+              <PropertyRef Name="IDSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_TypeSupplier">
+          <End Role="TypeSupplier" Type="Self.TypeSupplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeSupplier">
+              <PropertyRef Name="IDTypeSupplier" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="TypeSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище БД_СтроительнаяModelContainer">
+          <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialSupplier" EntityType="Self.MaterialSupplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeMaterial" EntityType="Self.TypeMaterial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeSupplier" EntityType="Self.TypeSupplier" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Material_TypeMaterial" Association="Self.FK_Material_TypeMaterial">
+            <End Role="TypeMaterial" EntitySet="TypeMaterial" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialSupplier_Material" Association="Self.FK_MaterialSupplier_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialSupplier" EntitySet="MaterialSupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialSupplier_Supplier" Association="Self.FK_MaterialSupplier_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="MaterialSupplier" EntitySet="MaterialSupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_TypeSupplier" Association="Self.FK_Supplier_TypeSupplier">
+            <End Role="TypeSupplier" EntitySet="TypeSupplier" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="БД_СтроительнаяModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="БД_СтроительнаяEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Material" EntityType="БД_СтроительнаяModel.Material" />
+          <EntitySet Name="MaterialSupplier" EntityType="БД_СтроительнаяModel.MaterialSupplier" />
+          <EntitySet Name="Supplier" EntityType="БД_СтроительнаяModel.Supplier" />
+          <EntitySet Name="TypeMaterial" EntityType="БД_СтроительнаяModel.TypeMaterial" />
+          <EntitySet Name="TypeSupplier" EntityType="БД_СтроительнаяModel.TypeSupplier" />
+          <AssociationSet Name="FK_Material_TypeMaterial" Association="БД_СтроительнаяModel.FK_Material_TypeMaterial">
+            <End Role="TypeMaterial" EntitySet="TypeMaterial" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialSupplier_Material" Association="БД_СтроительнаяModel.FK_MaterialSupplier_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialSupplier" EntitySet="MaterialSupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialSupplier_Supplier" Association="БД_СтроительнаяModel.FK_MaterialSupplier_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="MaterialSupplier" EntitySet="MaterialSupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_TypeSupplier" Association="БД_СтроительнаяModel.FK_Supplier_TypeSupplier">
+            <End Role="TypeSupplier" EntitySet="TypeSupplier" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="IDMaterial" />
+          </Key>
+          <Property Name="IDMaterial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeMaterial" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Article" Type="Int32" Nullable="false" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Int32" />
+          <NavigationProperty Name="TypeMaterial1" Relationship="БД_СтроительнаяModel.FK_Material_TypeMaterial" FromRole="Material" ToRole="TypeMaterial" />
+          <NavigationProperty Name="MaterialSupplier" Relationship="БД_СтроительнаяModel.FK_MaterialSupplier_Material" FromRole="Material" ToRole="MaterialSupplier" />
+        </EntityType>
+        <EntityType Name="MaterialSupplier">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDMaterial" Type="Int32" Nullable="false" />
+          <Property Name="IDSupplier" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Material" Relationship="БД_СтроительнаяModel.FK_MaterialSupplier_Material" FromRole="MaterialSupplier" ToRole="Material" />
+          <NavigationProperty Name="Supplier" Relationship="БД_СтроительнаяModel.FK_MaterialSupplier_Supplier" FromRole="MaterialSupplier" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="IDSupplier" />
+          </Key>
+          <Property Name="IDSupplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeSupplier" Type="Int32" Nullable="false" />
+          <Property Name="NameSupplier" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPerson" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MaterialSupplier" Relationship="БД_СтроительнаяModel.FK_MaterialSupplier_Supplier" FromRole="Supplier" ToRole="MaterialSupplier" />
+          <NavigationProperty Name="TypeSupplier1" Relationship="БД_СтроительнаяModel.FK_Supplier_TypeSupplier" FromRole="Supplier" ToRole="TypeSupplier" />
+        </EntityType>
+        <EntityType Name="TypeMaterial">
+          <Key>
+            <PropertyRef Name="IDTypeMaterial" />
+          </Key>
+          <Property Name="IDTypeMaterial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Material" Relationship="БД_СтроительнаяModel.FK_Material_TypeMaterial" FromRole="TypeMaterial" ToRole="Material" />
+        </EntityType>
+        <EntityType Name="TypeSupplier">
+          <Key>
+            <PropertyRef Name="IDTypeSupplier" />
+          </Key>
+          <Property Name="IDTypeSupplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeSupplier1" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Supplier" Relationship="БД_СтроительнаяModel.FK_Supplier_TypeSupplier" FromRole="TypeSupplier" ToRole="Supplier" />
+        </EntityType>
+        <Association Name="FK_Material_TypeMaterial">
+          <End Type="БД_СтроительнаяModel.TypeMaterial" Role="TypeMaterial" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="БД_СтроительнаяModel.Material" Role="Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeMaterial">
+              <PropertyRef Name="IDTypeMaterial" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="TypeMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialSupplier_Material">
+          <End Type="БД_СтроительнаяModel.Material" Role="Material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="БД_СтроительнаяModel.MaterialSupplier" Role="MaterialSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="IDMaterial" />
+            </Principal>
+            <Dependent Role="MaterialSupplier">
+              <PropertyRef Name="IDMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialSupplier_Supplier">
+          <End Type="БД_СтроительнаяModel.Supplier" Role="Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="БД_СтроительнаяModel.MaterialSupplier" Role="MaterialSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="IDSupplier" />
+            </Principal>
+            <Dependent Role="MaterialSupplier">
+              <PropertyRef Name="IDSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_TypeSupplier">
+          <End Type="БД_СтроительнаяModel.TypeSupplier" Role="TypeSupplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="БД_СтроительнаяModel.Supplier" Role="Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeSupplier">
+              <PropertyRef Name="IDTypeSupplier" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="TypeSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище БД_СтроительнаяModelContainer" CdmEntityContainer="БД_СтроительнаяEntities2">
+          <EntitySetMapping Name="Material">
+            <EntityTypeMapping TypeName="БД_СтроительнаяModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Article" ColumnName="Article" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TypeMaterial" ColumnName="TypeMaterial" />
+                <ScalarProperty Name="IDMaterial" ColumnName="IDMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialSupplier">
+            <EntityTypeMapping TypeName="БД_СтроительнаяModel.MaterialSupplier">
+              <MappingFragment StoreEntitySet="MaterialSupplier">
+                <ScalarProperty Name="IDSupplier" ColumnName="IDSupplier" />
+                <ScalarProperty Name="IDMaterial" ColumnName="IDMaterial" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="БД_СтроительнаяModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="NameSupplier" ColumnName="NameSupplier" />
+                <ScalarProperty Name="TypeSupplier" ColumnName="TypeSupplier" />
+                <ScalarProperty Name="IDSupplier" ColumnName="IDSupplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeMaterial">
+            <EntityTypeMapping TypeName="БД_СтроительнаяModel.TypeMaterial">
+              <MappingFragment StoreEntitySet="TypeMaterial">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDTypeMaterial" ColumnName="IDTypeMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeSupplier">
+            <EntityTypeMapping TypeName="БД_СтроительнаяModel.TypeSupplier">
+              <MappingFragment StoreEntitySet="TypeSupplier">
+                <ScalarProperty Name="TypeSupplier1" ColumnName="TypeSupplier" />
+                <ScalarProperty Name="IDTypeSupplier" ColumnName="IDTypeSupplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

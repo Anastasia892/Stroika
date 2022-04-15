@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4fac15d8b7fb408b8d975d3de387ca52" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="БД_СтроительнаяModel.Material" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="БД_СтроительнаяModel.MaterialSupplier" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="БД_СтроительнаяModel.Supplier" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="БД_СтроительнаяModel.TypeMaterial" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="БД_СтроительнаяModel.TypeSupplier" Width="1.5" PointX="0.75" PointY="1.375" />
+        <AssociationConnector Association="БД_СтроительнаяModel.FK_Material_TypeMaterial" />
+        <AssociationConnector Association="БД_СтроительнаяModel.FK_MaterialSupplier_Material" />
+        <AssociationConnector Association="БД_СтроительнаяModel.FK_MaterialSupplier_Supplier" />
+        <AssociationConnector Association="БД_СтроительнаяModel.FK_Supplier_TypeSupplier" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
